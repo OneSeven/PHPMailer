@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SMTP low memory example.
  */
@@ -59,7 +60,7 @@ class SMTPLowMemory extends SMTP
             //Remember where we have got to
             $offset += ($linelen + 1);
             $lines_out = [];
-            if ($in_headers and $line == '') {
+            if ($in_headers && $line === '') {
                 $in_headers = false;
             }
             //We need to break this line up into several smaller lines
@@ -90,7 +91,7 @@ class SMTPLowMemory extends SMTP
             //Send the lines to the server
             foreach ($lines_out as $line_out) {
                 //RFC2821 section 4.5.2
-                if (!empty($line_out) and $line_out[0] == '.') {
+                if (!empty($line_out) && $line_out[0] === '.') {
                     $line_out = '.' . $line_out;
                 }
                 $this->client_send($line_out . self::LE);
@@ -100,7 +101,7 @@ class SMTPLowMemory extends SMTP
         //Message data has been sent, complete the command
         //Increase timelimit for end of DATA command
         $savetimelimit = $this->Timelimit;
-        $this->Timelimit = $this->Timelimit * 2;
+        $this->Timelimit *= 2;
         $result = $this->sendCommand('DATA END', '.', 250);
         //Restore timelimit
         $this->Timelimit = $savetimelimit;
@@ -122,7 +123,7 @@ class PHPMailerLowMemory extends PHPMailer
     public function getSMTPInstance()
     {
         if (!is_object($this->smtp)) {
-            $this->smtp = new SMTPLowMemory;
+            $this->smtp = new SMTPLowMemory();
         }
 
         return $this->smtp;

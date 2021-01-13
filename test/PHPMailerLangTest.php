@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPMailer - language file tests.
  *
@@ -6,7 +7,7 @@
  *
  * @author    Marcus Bointon <phpmailer@synchromedia.co.uk>
  * @author    Andy Prevost
- * @copyright 2010 - 2017 Marcus Bointon
+ * @copyright 2010 - 2020 Marcus Bointon
  * @copyright 2004 - 2009 Andy Prevost
  * @license   http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
@@ -14,7 +15,7 @@
 namespace PHPMailer\Test;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Check language files for missing or excess translations.
@@ -31,7 +32,7 @@ final class PHPMailerLangTest extends TestCase
     /**
      * Run before each test is started.
      */
-    protected function setUp()
+    protected function set_up()
     {
         $this->Mail = new PHPMailer();
     }
@@ -47,7 +48,7 @@ final class PHPMailerLangTest extends TestCase
         $this->Mail->setLanguage('en');
         $definedStrings = $this->Mail->getTranslations();
         $err = '';
-        foreach (new \DirectoryIterator('../language') as $fileInfo) {
+        foreach (new \DirectoryIterator(__DIR__ . '/../language') as $fileInfo) {
             if ($fileInfo->isDot()) {
                 continue;
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This example shows how to use a callback function from PHPMailer.
  */
@@ -42,7 +43,7 @@ function callbackAction($result, $to, $cc, $bcc, $subject, $body)
 
 require_once '../vendor/autoload.php';
 
-$mail = new PHPMailer;
+$mail = new PHPMailer();
 
 try {
     $mail->isMail();
@@ -62,7 +63,7 @@ try {
 
 //Alternative approach using a closure
 try {
-    $mail->action_function = function ($result, $to, $cc, $bcc, $subject, $body) {
+    $mail->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
         if ($result) {
             echo "Message sent successfully\n";
         } else {
